@@ -40,6 +40,10 @@ Für spätere Versionen sind unter anderem folgende Funktionen vorgesehen:
 ## Dokumentation
 
 Die Anforderungen und UML-Diagramme werden im Ordner `docs` dokumentiert.
+Im Rahmen des Projekts habe ich folgende UML-Diagramme mit [UMLetino](https://umletino.com/) erstellt:
+- Use-Case-Diagramm
+- Aktivitätsdiagramm
+- Klassendiagramm
 
 ## Projektstatus
 
