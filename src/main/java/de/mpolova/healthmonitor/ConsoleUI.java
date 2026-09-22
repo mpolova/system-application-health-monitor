@@ -23,10 +23,14 @@ public class ConsoleUI {
 
         System.out.println("=== System & Application Health Monitor ===");
 
-        System.out.printf(
-                "CPU-Auslastung: %.2f %%\n",
-                systemMetrics.getCpuAuslastung()
-        );
+        if (Double.isNaN(systemMetrics.getCpuAuslastung())) {
+            System.out.println("CPU-Auslastung: nicht verfügbar");
+        } else {
+            System.out.printf(
+                    "CPU-Auslastung: %.2f %%\n",
+                    systemMetrics.getCpuAuslastung()
+            );
+        }
 
         System.out.printf(
                 "Arbeitsspeichernutzung: %.2f %%\n",

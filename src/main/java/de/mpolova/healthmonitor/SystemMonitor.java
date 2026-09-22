@@ -1,12 +1,14 @@
 package de.mpolova.healthmonitor;
 
+import com.sun.management.OperatingSystemMXBean;
+
 import java.io.File;
 import java.lang.management.ManagementFactory;
-import com.sun.management.OperatingSystemMXBean;
 
 public class SystemMonitor {
 
     public SystemMetrics systemressourcenErfassen() {
+
         File festplatte = new File("C:\\");
 
         long gesamtspeicher = festplatte.getTotalSpace();
@@ -28,7 +30,15 @@ public class SystemMonitor {
         double arbeitsspeichernutzung =
                 (double) verwendeterArbeitsspeicher / gesamterArbeitsspeicher * 100;
 
-        double cpuAuslastung = osBean.getCpuLoad() * 100;
+        double cpuLoad = osBean.getCpuLoad();
+
+        double cpuAuslastung;
+
+        if (cpuLoad >= 0) {
+            cpuAuslastung = cpuLoad * 100;
+        } else {
+            cpuAuslastung = Double.NaN;
+        }
 
         return new SystemMetrics(
                 cpuAuslastung,
