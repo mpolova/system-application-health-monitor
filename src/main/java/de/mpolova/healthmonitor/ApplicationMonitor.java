@@ -1,11 +1,12 @@
 package de.mpolova.healthmonitor;
 
-import java.net.http.HttpClient;
 import java.net.URI;
+import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ApplicationMonitor {
+
     private String url;
 
     public ApplicationMonitor(String url) {
@@ -19,6 +20,7 @@ public class ApplicationMonitor {
                 .uri(URI.create(url))
                 .GET()
                 .build();
+
         try {
             long startzeit = System.currentTimeMillis();
 
@@ -39,7 +41,6 @@ public class ApplicationMonitor {
             );
 
         } catch (Exception e) {
-
             return new ApplicationMetrics(
                     false,
                     0,
@@ -47,3 +48,4 @@ public class ApplicationMonitor {
             );
         }
     }
+}
