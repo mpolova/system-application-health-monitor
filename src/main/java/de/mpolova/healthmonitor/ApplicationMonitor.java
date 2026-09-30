@@ -5,6 +5,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import java.time.Duration;
+import java.io.IOException;
+
 public class ApplicationMonitor {
 
     private String url;
@@ -18,6 +21,7 @@ public class ApplicationMonitor {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
+                .timeout(Duration.ofSeconds(5))
                 .GET()
                 .build();
 
@@ -40,12 +44,23 @@ public class ApplicationMonitor {
                     antwortzeit
             );
 
-        } catch (Exception e) {
-            return new ApplicationMetrics(
-                    false,
-                    0,
-                    0
-            );
-        }
+    } catch (IOException e) {
+
+        return new ApplicationMetrics(
+                false,
+                0,
+                0
+        );
+
+    } catch (InterruptedException e) {
+
+        Thread.currentThread().interrupt();
+
+        return new ApplicationMetrics(
+                false,
+                0,
+                0
+        );
+    }
     }
 }
