@@ -10,41 +10,89 @@ Das Projekt entsteht im Rahmen meiner Umschulung zur Fachinformatikerin für Anw
 
 ### Version 1
 
-Die erste Version konzentriert sich auf die grundlegende Überwachung:
+Die erste Version umfasst die grundlegende Überwachung von System und Anwendung:
 
-- CPU-Auslastung
-- Arbeitsspeichernutzung
-- Festplattennutzung
-- Prüfung einer REST-API
-- HTTP-Statuscode und Antwortzeit
+- Erfassung der CPU-Auslastung
+- Erfassung der Arbeitsspeichernutzung
+- Erfassung der Festplattennutzung
+- Prüfung der Erreichbarkeit einer Anwendung über HTTP
+- Erfassung von HTTP-Statuscode und Antwortzeit
+- Konfigurierbare Warn- und kritische Grenzwerte
 - Bewertung des Zustands als `HEALTHY`, `WARNING`, `CRITICAL` oder `DOWN`
-- Ausgabe der Ergebnisse in der Konsole
+- Behandlung von Netzwerkfehlern und HTTP-Timeouts
+- Ausgabe der Monitoring-Ergebnisse in der Konsole
 
-### Geplante Erweiterungen
+## Statusbewertung
+
+Der Zustand wird anhand der erfassten Messwerte und der definierten Grenzwerte bewertet:
+
+- `HEALTHY` – Systemwerte liegen unterhalb des Warnwerts und die Anwendung ist erreichbar
+- `WARNING` – mindestens ein Systemwert erreicht den Warnwert
+- `CRITICAL` – mindestens ein Systemwert erreicht den kritischen Grenzwert oder die Anwendung liefert einen HTTP-Statuscode ab 500
+- `DOWN` – die Anwendung ist nicht erreichbar
+
+## Technologien
+
+- Java 21
+- Maven
+- JUnit 5
+- Java HTTP Client
+- Git & GitHub
+- UML
+
+## Tests
+
+Die Bewertungslogik des `HealthEvaluator` wird mit JUnit 5 getestet.
+
+Die Unit-Tests prüfen folgende Szenarien:
+
+- nicht erreichbare Anwendung → `DOWN`
+- HTTP-Serverfehler → `CRITICAL`
+- kritische Systemauslastung → `CRITICAL`
+- erhöhte Systemauslastung → `WARNING`
+- normale Messwerte → `HEALTHY`
+
+Die Tests können über den Maven-Lifecycle mit `test` ausgeführt werden.
+
+Aktueller Teststand:
+
+`5 Tests, 0 Failures, 0 Errors`
+
+## Beispielausgabe
+
+```text
+=== System & Application Health Monitor ===
+CPU-Auslastung: 0,00 %
+Arbeitsspeichernutzung: 85,70 %
+Festplattennutzung: 41,33 %
+Anwendung erreichbar: true
+HTTP-Statuscode: 200
+Antwortzeit: 767 ms
+Health-Status: WARNING
+```
+
+Die angezeigten Messwerte hängen vom jeweiligen System und vom Zeitpunkt der Messung ab.
+
+## Dokumentation
+
+Die Anforderungen und UML-Diagramme befinden sich im Ordner `docs`.
+
+Im Rahmen des Projekts wurden folgende UML-Diagramme mit UMLetino erstellt:
+
+- Use-Case-Diagramm
+- Aktivitätsdiagramm
+- Klassendiagramm
+
+## Geplante Erweiterungen
 
 Für spätere Versionen sind unter anderem folgende Funktionen vorgesehen:
 
 - Speicherung von Monitoring-Daten
-- konfigurierbare Grenzwerte
 - Überwachung mehrerer Anwendungen
 - Protokollierung von Statusänderungen
 - REST-Schnittstelle für Monitoring-Daten
 - einfache grafische Darstellung der Ergebnisse
 
-## Technologien
-
-- Java
-- REST / HTTP
-- Git & GitHub
-
-## Dokumentation
-
-Die Anforderungen und UML-Diagramme werden im Ordner `docs` dokumentiert.
-Im Rahmen des Projekts habe ich folgende UML-Diagramme mit [UMLetino](https://umletino.com/) erstellt:
-- Use-Case-Diagramm
-- Aktivitätsdiagramm
-- Klassendiagramm
-
 ## Projektstatus
 
-Version 1 befindet sich aktuell in Entwicklung.
+Version 1 ist abgeschlossen.
